@@ -1,0 +1,5 @@
+[build]
+buildCommand = "npm install && npm run build -w src"
+
+[deploy]
+startCommand = "npm run start -w server"
