@@ -2,6 +2,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { QueueState, SearchResult, RateLimit } from './types';
 import { useUserId } from './hooks/useUserId';
 import { useWebSocket } from './hooks/useWebSocket';
+import { useWakeLock } from './hooks/useWakeLock';
 import { Player } from './components/Player';
 import { NowPlaying } from './components/NowPlaying';
 import { Queue } from './components/Queue';
@@ -23,6 +24,8 @@ function Main() {
   const [addError, setAddError] = useState<string | null>(null);
   const [rateLimit, setRateLimit] = useState<RateLimit>({ remaining: 5, resetAt: 0 });
   const [isHost, setIsHost] = useState(() => localStorage.getItem('isHost') === 'true');
+
+  useWakeLock(isHost);
 
   useWebSocket((msg) => {
     const m = msg as { type: string; data: QueueState };
@@ -109,7 +112,7 @@ function Main() {
                 : 'border-zinc-600 text-zinc-400 hover:border-zinc-400 hover:text-zinc-200'
             }`}
           >
-            {isHost ? 'Player' : 'Guest'}
+            {isHost ? '☀ Player' : 'Guest'}
           </button>
         </div>
       </header>
