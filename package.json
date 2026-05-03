@@ -1,0 +1,13 @@
+{
+  "name": "ytmusic-office-player",
+  "private": true,
+  "workspaces": ["src", "server"],
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w src\"",
+    "build": "npm run build -w src",
+    "start": "npm run start -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
